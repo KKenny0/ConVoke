@@ -94,9 +94,51 @@ agents:
 - **Pluggable** — CLI invocation as the default backend, extensible for future channels
 - **Cross-platform** — Supports both Unix and Windows daemon management
 
-## Status
+## CLI Commands
 
-ConVoke is currently in the design phase. See the [ConPact](https://github.com/KKenny0/ConPact) repository for the contract protocol it builds upon.
+| Command | Description |
+|---------|-------------|
+| `convoke` | Show status summary with ASCII art banner |
+| `convoke init` | Interactive setup for `.agents/convoke.yaml` |
+| `convoke start` | Start daemon in foreground |
+| `convoke start -d` | Start as background daemon |
+| `convoke stop` | Stop the daemon |
+| `convoke status` | Show daemon status, agent availability, recent notifications |
+| `convoke test --agent <name>` | Send a test notification |
+| `convoke log [-n 20]` | View notification log |
+
+## Tech Stack
+
+- Python 3.11+
+- [watchdog](https://python-watchdog.readthedocs.io/) — Filesystem event monitoring
+- [Pydantic](https://docs.pydantic.dev/) — Data models and validation
+- [Typer](https://typer.tiangolo.com/) — CLI framework
+- [PyYAML](https://pyyaml.readthedocs.io/) — Config parsing
+- [pyfiglet](https://pypi.org/project/pyfiglet/) — ASCII art banner
+
+## Project Structure
+
+```
+convoke/
+├── pyproject.toml
+├── src/convoke/
+│   ├── __init__.py
+│   ├── cli.py              # CLI entry point + commands
+│   ├── daemon.py           # Main daemon orchestration
+│   ├── watcher.py          # File system watcher + debounce
+│   ├── router.py           # State transition → notification routing
+│   ├── notifier.py         # CLI subprocess invocation
+│   ├── config.py           # Config loading and validation
+│   ├── models.py           # Pydantic data models
+│   └── logging.py          # Logging setup
+├── tests/                  # 56 tests
+├── docs/                  # Design spec and implementation plan
+└── PROJECT.md             # Project brief
+```
+
+## Related
+
+- [ConPact](https://github.com/KKenny0/ConPact) — Multi-Agent Contract Protocol
 
 ## License
 
