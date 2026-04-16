@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "convoke"
+version = "0.1.0"
+description = "Contract + Invoke — The notification layer for multi-agent collaboration"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "watchdog>=4.0",
+    "pydantic>=2.0",
+    "typer>=0.12",
+    "pyyaml>=6.0",
+    "pyfiglet>=0.8",
+]
+
+[project.scripts]
+convoke = "convoke.cli:app"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-mock>=3.14",
+    "ruff>=0.5",
+]
